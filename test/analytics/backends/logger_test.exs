@@ -6,7 +6,7 @@ defmodule Analytics.Backend.LoggerTest do
   alias Analytics.Metric
   alias Analytics.Backend.Logger
 
-  test "sends a metric to database" do
+  test "sends a metric to stdout" do
     metric = %Metric{
       project: "example",
       account_id: "123",
