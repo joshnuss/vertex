@@ -1,6 +1,6 @@
 # Analytics
 
-A small server for storing multi-tenant metrics in [ClickHouse](https://clickhouse.com/).
+A server for storing multi-tenant metrics in [ClickHouse](https://clickhouse.com/).
 
 ## Motivation
 
