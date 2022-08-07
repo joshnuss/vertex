@@ -6,9 +6,9 @@ A small server for storing multi-tenant metrics in [ClickHouse](https://clickhou
 
 Unlike StatsD, events are scoped by tenant. That makes it possible to have alerts and reporting based on tenants.
 
-For example, I'd like to know if an account hasn't logged in over the past 2 weeks. The SaaS app would publish an event `login.success` and attach the `account_id`. Then automation could be built around that event missing.
+For example, I'd like to know if an account hasn't logged in over the past 2 weeks. The SaaS app would publish an event `login.success` and attach the `account_id`. Then automation could be built around that event being missing.
 
-This is also more economical than signing up to DataDog or similar metric logging system. This can run on Digital Ocean for nothing.
+It is also more economical than DataDog or similar metric logging systems. It can run on inexpensive hosting while supporting many projects for no additional cost.
 
 ## Usage
 
@@ -30,6 +30,13 @@ Set environement vars:
 - `CLICKHOUSE_USER`: Name of ClickHouse user.
 - `CLICKHOUSE_PASSWORD`: Password for ClickHouse user.
 - `ANALYTICS_ACCESS_TOKEN`: Secret access token that will be verified on each request.
+
+## Future ideas
+
+- Support batch inserting metrics
+- Support multiple access keys (one per-project)
+- Support triggers: send an email when something happens
+- Support expectations: send an email when something doesn't happen
 
 ## License
 
