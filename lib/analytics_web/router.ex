@@ -5,6 +5,10 @@ defmodule AnalyticsWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/", AnalyticsWeb do
+    get "/ping", PingController, :index
+  end
+
   scope "/api", AnalyticsWeb do
     pipe_through :api
   end
