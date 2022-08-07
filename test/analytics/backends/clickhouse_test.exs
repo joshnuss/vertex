@@ -17,6 +17,7 @@ defmodule Analytics.Backend.ClickhouseTest do
 
       assert conn.query_params["database"] == "analytics"
       assert conn.query_params["query"] == ""
+
       assert body == """
              INSERT INTO metrics (project, account_id, event, tags)
              VALUES (
@@ -45,6 +46,7 @@ defmodule Analytics.Backend.ClickhouseTest do
 
       assert conn.query_params["database"] == "analytics"
       assert conn.query_params["query"] == ""
+
       assert body == """
              INSERT INTO metrics (project, account_id, event, tags)
              VALUES (

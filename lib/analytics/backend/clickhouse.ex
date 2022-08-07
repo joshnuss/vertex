@@ -11,12 +11,13 @@ defmodule Analytics.Backend.Clickhouse do
   def record(metric) do
     query = build_query(metric)
 
-    %{status: 200} = Req.post!(@req,
-      url: "/",
-      params: %{ database: @database, query: "" },
-      body: query,
-      auth: { @user, @password }
-    )
+    %{status: 200} =
+      Req.post!(@req,
+        url: "/",
+        params: %{database: @database, query: ""},
+        body: query,
+        auth: {@user, @password}
+      )
 
     :ok
   end
