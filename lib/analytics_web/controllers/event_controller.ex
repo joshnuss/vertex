@@ -10,7 +10,7 @@ defmodule AnalyticsWeb.EventController do
       project: params["project"],
       account_id: params["account_id"],
       event: params["event"],
-      tags: params["tags"],
+      tags: params["tags"]
     }
 
     @backend.record(metric)
