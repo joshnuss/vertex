@@ -9,8 +9,10 @@ defmodule AnalyticsWeb.Router do
     get "/ping", PingController, :index
   end
 
-  scope "/api", AnalyticsWeb do
+  scope "/", AnalyticsWeb do
     pipe_through :api
+
+    post "/event", EventController, :create
   end
 
   # Enables LiveDashboard only for development
