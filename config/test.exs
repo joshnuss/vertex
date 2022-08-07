@@ -17,6 +17,7 @@ config :logger, level: :warn
 config :phoenix, :plug_init_mode, :runtime
 
 config :analytics, backend: Analytics.Backend.Testing
+config :analytics, access_token: "fake-access-token"
 
 config :analytics, :clickhouse,
   database: "analytics",

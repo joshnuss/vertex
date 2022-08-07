@@ -3,6 +3,7 @@ defmodule AnalyticsWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug AnalyticsWeb.Authenticate
   end
 
   scope "/", AnalyticsWeb do
