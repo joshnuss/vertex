@@ -12,7 +12,6 @@ defmodule AnalyticsWeb.Controllers.EventControllerTest do
   describe "POST /" do
     test "with valid access token", %{conn: conn} do
       payload = %{
-        project: "site1",
         account_id: "1234",
         event: "login.success",
         tags: ["enterprise-plan", "staging"]
@@ -24,6 +23,9 @@ defmodule AnalyticsWeb.Controllers.EventControllerTest do
         |> post("/event", payload)
 
       assert json_response(conn, 201) == %{}
+
+      # wait for backend to finish recording
+      Process.sleep(1)
 
       assert Backend.Testing.metrics() == [
                %Metric{

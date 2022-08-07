@@ -51,7 +51,9 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 config :analytics, backend: Analytics.Backend.Logger
-config :analytics, access_token: "fake-access-token"
+config :analytics, projects: %{
+  "site1" => "fake-access-token"
+}
 
 config :analytics, :clickhouse,
   database: "analytics",

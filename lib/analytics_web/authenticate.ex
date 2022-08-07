@@ -2,15 +2,17 @@ defmodule AnalyticsWeb.Authenticate do
   import Plug.Conn
   import Phoenix.Controller, only: [json: 2]
 
-  @access_token Application.get_env(:analytics, :access_token)
+  alias Analytics.Project
 
   def init(options), do: options
 
   def call(conn, _opts) do
     authorization = get_req_header(conn, "authorization")
+    access_token = get_access_token(authorization)
+    project = Project.get(access_token)
 
-    if authorization == ["Bearer " <> @access_token] do
-      conn
+    if project do
+      assign(conn, :project, project)
     else
       conn
       |> put_status(:unauthorized)
@@ -18,4 +20,7 @@ defmodule AnalyticsWeb.Authenticate do
       |> halt()
     end
   end
+
+  defp get_access_token(["Bearer " <> access_token]), do: access_token
+  defp get_access_token(_), do: nil
 end

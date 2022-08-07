@@ -18,7 +18,7 @@ To send a metric over HTTP:
 curl http://localhost:4000/event \
   --header "authorization: Bearer <access-token>" \
   --header "content-type: application/json" \
-  --data '{ "project": "dashboard", "account_id": "1234", "event": "order.success", "tags": ["enterprise-plan", "sandbox"] }'
+  --data '{ "account_id": "1234", "event": "order.success", "tags": ["enterprise-plan", "sandbox"] }'
 ```
 
 ## Deployment
@@ -29,12 +29,19 @@ Set environement vars:
 - `CLICKHOUSE_URL`: URL of the ClickHouse cluster. Including the port (usually `:8123`).
 - `CLICKHOUSE_USER`: Name of ClickHouse user.
 - `CLICKHOUSE_PASSWORD`: Password for ClickHouse user.
-- `ANALYTICS_ACCESS_TOKEN`: Secret access token that will be verified on each request.
+
+Create a list of project names and access keys in `projects.json`:
+
+```json
+{
+  "my-project": "my-access-token",
+  "my-other-project": "my-other-access-token"
+}
+```
 
 ## Future ideas
 
 - Support batch inserting metrics
-- Support multiple access keys (one per-project)
 - Support triggers: send an email when something happens
 - Support expectations: send an email when something doesn't happen
 

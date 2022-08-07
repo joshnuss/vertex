@@ -8,6 +8,7 @@ defmodule Analytics.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      Analytics.Project,
       # Start the Telemetry supervisor
       AnalyticsWeb.Telemetry,
       # Start the PubSub system

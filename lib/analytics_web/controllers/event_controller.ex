@@ -7,7 +7,7 @@ defmodule AnalyticsWeb.EventController do
 
   def create(conn, params) do
     metric = %Metric{
-      project: params["project"],
+      project: conn.assigns.project,
       account_id: params["account_id"],
       event: params["event"],
       tags: params["tags"]
