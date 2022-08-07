@@ -13,7 +13,9 @@ defmodule AnalyticsWeb.EventController do
       tags: params["tags"]
     }
 
-    @backend.record(metric)
+    spawn(fn ->
+      @backend.record(metric)
+    end)
 
     conn
     |> put_status(:created)
