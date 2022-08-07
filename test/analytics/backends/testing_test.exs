@@ -4,6 +4,10 @@ defmodule Analytics.Backend.TestingTest do
   alias Analytics.Metric
   alias Analytics.Backend.Testing
 
+  setup do
+    Testing.reset!()
+  end
+
   test "logs a metric" do
     metric = %Metric{
       project: "example",
