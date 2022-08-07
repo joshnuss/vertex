@@ -65,4 +65,9 @@ if config_env() == :prod do
   #     config :swoosh, :api_client, Swoosh.ApiClient.Hackney
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
+
+  config :analytics, backend: Analytics.Backend.Clickhouse
+  config :analytics, :clickhouse,
+    database: System.get_env("CLICKHOUSE_DATABASE"),
+    url: System.get_env("CLICKHOUSE_URL")
 end

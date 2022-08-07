@@ -17,6 +17,7 @@ config :logger, level: :warn
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
 
+config :analytics, backend: Analytics.Backend.Testing
 config :analytics, :clickhouse,
   database: "analytics",
   url: "http://localhost:6001"
