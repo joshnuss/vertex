@@ -4,7 +4,7 @@ A small server for storing multi-tenant metrics in [ClickHouse](https://clickhou
 
 ## Motivation
 
-Unlike StatsD, events are scoped by project and tenant. That makes it possible to have alerts and reporting based on tenant.
+Unlike StatsD, events are scoped by tenant. That makes it possible to have alerts and reporting based on tenants.
 
 For example, I'd like to know if an account hasn't logged in over the past 2 weeks. The SaaS app would publish an event `login.success` and attach the `account_id`. Then automation could be built around that event missing.
 
