@@ -16,8 +16,7 @@ defmodule Analytics.Backend.TestingTest do
       tags: ["test", "staging"]
     }
 
-    Testing.record(metric)
-
+    assert Testing.record(metric) == :ok
     assert Testing.metrics() == [metric]
   end
 end

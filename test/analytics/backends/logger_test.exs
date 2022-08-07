@@ -15,7 +15,7 @@ defmodule Analytics.Backend.LoggerTest do
     }
 
     assert capture_io(fn ->
-             Logger.record(metric)
+             :ok = Logger.record(metric)
            end) ==
              ~s|{"account_id":"123","event":"access.login.success","project":"example","tags":["test","staging"]}\n|
   end
