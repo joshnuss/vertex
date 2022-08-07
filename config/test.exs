@@ -21,4 +21,6 @@ config :analytics, access_token: "fake-access-token"
 
 config :analytics, :clickhouse,
   database: "analytics",
-  url: "http://localhost:6001"
+  url: "http://localhost:6001",
+  user: "default",
+  password: "secret"

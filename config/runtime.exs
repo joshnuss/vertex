@@ -71,5 +71,7 @@ if config_env() == :prod do
 
   config :analytics, :clickhouse,
     database: System.get_env("CLICKHOUSE_DATABASE"),
-    url: System.get_env("CLICKHOUSE_URL")
+    url: System.get_env("CLICKHOUSE_URL"),
+    user: System.get_env("CLICKHOUSE_USER"),
+    password: System.get_env("CLICKHOUSE_PASSWORD")
 end

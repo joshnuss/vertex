@@ -50,9 +50,11 @@ config :phoenix, :stacktrace_depth, 20
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
-config :analytics, backend: Analytics.Backend.Logger
+config :analytics, backend: Analytics.Backend.Clickhouse
 config :analytics, access_token: "fake-access-token"
 
 config :analytics, :clickhouse,
   database: "analytics",
-  url: "http://localhost:8123"
+  url: "http://localhost:8123",
+  user: "default",
+  password: "secret"

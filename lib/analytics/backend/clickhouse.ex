@@ -4,15 +4,21 @@ defmodule Analytics.Backend.Clickhouse do
   @config Application.get_env(:analytics, :clickhouse)
   @database Keyword.fetch!(@config, :database)
   @url Keyword.fetch!(@config, :url)
+  @user Keyword.fetch!(@config, :user)
+  @password Keyword.fetch!(@config, :password)
   @req Req.new(base_url: @url)
 
   def record(metric) do
     query = build_query(metric)
 
-    Req.post!(@req,
-      url: "/database=#{@database}&query=",
-      body: query
+    %{status: 200} = Req.post!(@req,
+      url: "/",
+      params: %{ database: @database, query: "" },
+      body: query,
+      auth: { @user, @password }
     )
+
+    :ok
   end
 
   defp build_query(metric) do
