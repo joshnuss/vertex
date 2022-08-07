@@ -25,9 +25,11 @@ curl http://localhost:4000/event \
 
 Set environement vars:
 
-- `CLICKHOUSE_DATABASE`: The name of the ClickHouse database.
-- `CLICKHOUSE_URL`: The URL of the ClickHouse cluster. Including the port (usually `:8123`).
-- `ANALYTICS_ACCESS_TOKEN`: The secret access token that will be verified on each request.
+- `CLICKHOUSE_DATABASE`: Name of the ClickHouse database.
+- `CLICKHOUSE_URL`: URL of the ClickHouse cluster. Including the port (usually `:8123`).
+- `CLICKHOUSE_USER`: Name of ClickHouse user.
+- `CLICKHOUSE_PASSWORD`: Password for ClickHouse user.
+- `ANALYTICS_ACCESS_TOKEN`: Secret access token that will be verified on each request.
 
 ## License
 
