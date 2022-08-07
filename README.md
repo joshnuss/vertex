@@ -1,18 +1,33 @@
 # Analytics
 
-To start your Phoenix server:
+A small analytics server that stores metrics in [ClickHouse](https://clickhouse.com/).
 
-  * Install dependencies with `mix deps.get`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+## Motivation
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Unlike StatsD, events are scoped by project and tenant. It makes it possible to get alerts based on tenant activity.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+For example, I'd like to know if an account hasn't logged in over the past 2 weeks. The SaaS app would publish an event `account.login.success` and pass the `account_id` along. Then automation could be built around that (not build yet).
 
-## Learn more
+This is also more economical than signing up to DataDog or similar metric logging system. It can run on Digital Ocean for nothing.
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+## Usage
+
+Metrics are sent over HTTP:
+
+```bash
+curl https://1.2.3.4/track \
+  --header "Authorization: Bearer <access-token>"
+  --data '{ "account_id": "1234", "event": "order.success", "tags": ["enterprise-plan", "sandbox"] }'
+```
+
+## Deployment
+
+Set environement vars:
+
+- `CLICKHOUSE_DATABASE`: The name of the ClickHouse database.
+- `CLICKHOUSE_URL`: The URL of the ClickHouse cluster. Including the port (usually `8123`)
+- `ANALYTICS_ACCESS_TOKEN`: The secret access token that will be verified on each request.
+
+## License
+
+MIT
