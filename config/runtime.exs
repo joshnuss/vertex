@@ -67,9 +67,11 @@ if config_env() == :prod do
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
 
   config :analytics, backend: Analytics.Backend.Clickhouse
-  config :analytics, projects: %{
-    default: System.get_env("ANALYTICS_ACCESS_TOKEN")
-  }
+
+  config :analytics,
+    projects: %{
+      default: System.get_env("ANALYTICS_ACCESS_TOKEN")
+    }
 
   config :analytics, :clickhouse,
     database: System.get_env("CLICKHOUSE_DATABASE"),

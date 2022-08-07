@@ -18,6 +18,7 @@ defmodule Analytics.Project do
   end
 
   def get(nil), do: nil
+
   def get(access_token) do
     Agent.get(@name, fn state -> state[access_token] end)
   end
