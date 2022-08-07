@@ -15,9 +15,10 @@ This is also more economical than signing up to DataDog or similar metric loggin
 To send a metric over HTTP:
 
 ```bash
-curl https://1.2.3.4/track \
-  --header "Authorization: Bearer <access-token>"
-  --data '{ "account_id": "1234", "event": "order.success", "tags": ["enterprise-plan", "sandbox"] }'
+curl http://localhost:4000/event \
+  --header "authorization: Bearer <access-token>" \
+  --header "content-type: application/json" \
+  --data '{ "project": "dashboard", "account_id": "1234", "event": "order.success", "tags": ["enterprise-plan", "sandbox"] }'
 ```
 
 ## Deployment
