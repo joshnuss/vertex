@@ -8,22 +8,22 @@ defmodule Analytics.Backend.ClickhouseTest do
   setup do
     bypass = Bypass.open(port: 6001)
 
-    %{ bypass: bypass }
+    %{bypass: bypass}
   end
 
-  test "sends a metric to database", %{ bypass: bypass } do
+  test "sends a metric to database", %{bypass: bypass} do
     Bypass.expect_once(bypass, "POST", "/database=analytics&query=", fn conn ->
       {:ok, body, conn} = Conn.read_body(conn)
 
       assert body == """
-      INSERT INTO metrics (project, account_id, event, tags)
-      VALUES (
-        'example',
-        '123',
-        'access.login.success',
-        []
-      )
-      """
+             INSERT INTO metrics (project, account_id, event, tags)
+             VALUES (
+               'example',
+               '123',
+               'access.login.success',
+               []
+             )
+             """
 
       Conn.resp(conn, 200, "")
     end)
@@ -37,19 +37,19 @@ defmodule Analytics.Backend.ClickhouseTest do
     Clickhouse.record(metric)
   end
 
-  test "sends a metric to database with tags", %{ bypass: bypass } do
+  test "sends a metric to database with tags", %{bypass: bypass} do
     Bypass.expect_once(bypass, "POST", "/database=analytics&query=", fn conn ->
       {:ok, body, conn} = Conn.read_body(conn)
 
       assert body == """
-      INSERT INTO metrics (project, account_id, event, tags)
-      VALUES (
-        'example',
-        '123',
-        'access.login.success',
-        ['test','staging']
-      )
-      """
+             INSERT INTO metrics (project, account_id, event, tags)
+             VALUES (
+               'example',
+               '123',
+               'access.login.success',
+               ['test','staging']
+             )
+             """
 
       Conn.resp(conn, 200, "")
     end)

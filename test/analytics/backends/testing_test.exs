@@ -18,6 +18,6 @@ defmodule Analytics.Backend.TestingTest do
 
     Testing.record(metric)
 
-    assert Testing.metrics == [metric]
+    assert Testing.metrics() == [metric]
   end
 end

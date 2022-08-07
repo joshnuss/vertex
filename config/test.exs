@@ -8,8 +8,7 @@ config :analytics, AnalyticsWeb.Endpoint,
   server: false
 
 # In test we don't send emails.
-config :analytics, Analytics.Mailer,
-  adapter: Swoosh.Adapters.Test
+config :analytics, Analytics.Mailer, adapter: Swoosh.Adapters.Test
 
 # Print only warnings and errors during test
 config :logger, level: :warn
@@ -18,6 +17,7 @@ config :logger, level: :warn
 config :phoenix, :plug_init_mode, :runtime
 
 config :analytics, backend: Analytics.Backend.Testing
+
 config :analytics, :clickhouse,
   database: "analytics",
   url: "http://localhost:6001"

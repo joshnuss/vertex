@@ -11,11 +11,12 @@ defmodule Analytics.Backend.Clickhouse do
 
     Req.post!(@req,
       url: "/database=#{@database}&query=",
-      body: query)
+      body: query
+    )
   end
 
   defp build_query(metric) do
-    tags = Enum.map_join(metric.tags, ",", & "'#{&1}'")
+    tags = Enum.map_join(metric.tags, ",", &"'#{&1}'")
 
     """
     INSERT INTO metrics (project, account_id, event, tags)
