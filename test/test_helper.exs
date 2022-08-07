@@ -1,3 +1,3 @@
-{:ok, _pid} = Agent.start_link(fn -> [] end, name: :metric_log)
+{:ok, _pid} = Analytics.Backend.Testing.start_link()
 
 ExUnit.start()

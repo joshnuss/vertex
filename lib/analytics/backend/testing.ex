@@ -1,15 +1,21 @@
 defmodule Analytics.Backend.Testing do
   @behaviour Analytics.Backend
 
+  @name __MODULE__
+
+  def start_link do
+    Agent.start_link(fn -> [] end, name: @name)
+  end
+
   def record(metric) do
-    Agent.update(:metric_log, fn state -> state ++ [metric] end)
+    Agent.update(@name, fn state -> state ++ [metric] end)
   end
 
   def metrics do
-    Agent.get(:metric_log, & &1)
+    Agent.get(@name, & &1)
   end
 
   def reset! do
-    Agent.update(:metric_log, fn _state -> [] end)
+    Agent.update(@name, fn _state -> [] end)
   end
 end
