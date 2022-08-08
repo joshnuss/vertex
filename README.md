@@ -21,7 +21,7 @@ curl http://localhost:4000/event \
   --data '{ "tenant": "1234", "event": "order.success", "tags": ["enterprise-plan", "sandbox"] }'
 ```
 
-## Send a batch of metrics
+### Send a batch of metrics
 
 ```bash
 curl http://localhost:4000/events \
@@ -40,8 +40,8 @@ cat priv/setup.sql | clickhouse-client --host <ip> --database=<db-name> --user=d
 
 Set environement vars:
 
-- `CLICKHOUSE_DATABASE`: Name of the ClickHouse database.
 - `CLICKHOUSE_URL`: URL of the ClickHouse cluster. Including the port (usually `:8123`).
+- `CLICKHOUSE_DATABASE`: Name of the ClickHouse database.
 - `CLICKHOUSE_USER`: Name of ClickHouse user.
 - `CLICKHOUSE_PASSWORD`: Password for ClickHouse user.
 
