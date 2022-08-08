@@ -35,7 +35,7 @@ curl http://localhost:4000/events \
 Create database using [`setup.sql`](/priv/setup.sql):
 
 ```bash
-echo priv/setup.sql | clickhouse-client --host <ip> --database=<db-name> --user=default --password=<password>
+cat priv/setup.sql | clickhouse-client --host <ip> --database=<db-name> --user=default --password=<password>
 ```
 
 Set environement vars:
