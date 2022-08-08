@@ -6,7 +6,7 @@ A server for storing multi-tenant metrics in [ClickHouse](https://clickhouse.com
 
 Unlike StatsD, events are scoped by tenant. That makes it possible to have alerts and reporting based on tenants.
 
-For example, I'd like to know if an account hasn't logged in over the past 2 weeks. The SaaS app would publish an event `login.success` and attach the `account_id`. Then automation could be built around that event being missing.
+For example, I'd like to know if an account hasn't logged in over the past 2 weeks. The SaaS app would publish an event `login.success` and attach the `account_id` as the `tenant`. Then automation could be built around that event being missing.
 
 It is also more economical than DataDog or similar metric logging systems. It can run on inexpensive hosting while supporting many projects for no additional cost.
 
@@ -18,7 +18,7 @@ It is also more economical than DataDog or similar metric logging systems. It ca
 curl http://localhost:4000/event \
   --header "authorization: Bearer <access-token>" \
   --header "content-type: application/json" \
-  --data '{ "account_id": "1234", "event": "order.success", "tags": ["enterprise-plan", "sandbox"] }'
+  --data '{ "tenant": "1234", "event": "order.success", "tags": ["enterprise-plan", "sandbox"] }'
 ```
 
 ## Send a batch of metrics
@@ -27,7 +27,7 @@ curl http://localhost:4000/event \
 curl http://localhost:4000/events \
   --header "authorization: Bearer <access-token>" \
   --header "content-type: application/json" \
-  --data '[{"account_id": "1234", "event": "account.login"}, {"account_id": "1234", "event": "order.success"}]'
+  --data '[{"tenant": "1234", "event": "account.login"}, {"tenant": "1234", "event": "order.success"}]'
 ```
 
 ## Deployment

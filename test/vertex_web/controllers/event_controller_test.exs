@@ -12,7 +12,7 @@ defmodule VertexWeb.Controllers.EventControllerTest do
   describe "POST /event" do
     test "with valid access token", %{conn: conn} do
       payload = %{
-        account_id: "1234",
+        tenant: "1234",
         event: "login.success",
         tags: ["enterprise-plan", "staging"]
       }
@@ -30,7 +30,7 @@ defmodule VertexWeb.Controllers.EventControllerTest do
       assert Backend.Testing.metrics() == [
                %Metric{
                  project: "site1",
-                 account_id: "1234",
+                 tenant: "1234",
                  event: "login.success",
                  tags: ["enterprise-plan", "staging"]
                }
@@ -59,12 +59,12 @@ defmodule VertexWeb.Controllers.EventControllerTest do
     test "with valid access token", %{conn: conn} do
       payload = Jason.encode!([
         %{
-          account_id: "1234",
+          tenant: "1234",
           event: "login.success",
           tags: ["plan:enterprise", "staging"]
         },
         %{
-          account_id: "1234",
+          tenant: "1234",
           event: "login.failure",
           tags: ["plan:enterprise", "staging"]
         }
@@ -84,13 +84,13 @@ defmodule VertexWeb.Controllers.EventControllerTest do
       assert Backend.Testing.metrics() == [
                %Metric{
                  project: "site1",
-                 account_id: "1234",
+                 tenant: "1234",
                  event: "login.success",
                  tags: ["plan:enterprise", "staging"]
                },
                %Metric{
                  project: "site1",
-                 account_id: "1234",
+                 tenant: "1234",
                  event: "login.failure",
                  tags: ["plan:enterprise", "staging"]
                }

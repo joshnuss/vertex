@@ -8,7 +8,7 @@ defmodule VertexWeb.EventController do
   def create(conn, params) do
     metric = %Metric{
       project: conn.assigns.project,
-      account_id: params["account_id"],
+      tenant: params["tenant"],
       event: params["event"],
       tags: params["tags"] || []
     }
@@ -26,7 +26,7 @@ defmodule VertexWeb.EventController do
     list = params["_json"]
     metrics = Enum.map(list, & %Metric{
       project: conn.assigns.project,
-      account_id: &1["account_id"],
+      tenant: &1["tenant"],
       event: &1["event"],
       tags: &1["tags"] || []
     })

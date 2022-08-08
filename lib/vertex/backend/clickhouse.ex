@@ -28,7 +28,7 @@ defmodule Vertex.Backend.Clickhouse do
     values = Enum.map_join(metrics, ",\n", &build_values/1)
 
     """
-    INSERT INTO metrics (project, account_id, event, tags)
+    INSERT INTO metrics (project, tenant, event, tags)
     FORMAT Values #{values}
     """
   end
@@ -36,6 +36,6 @@ defmodule Vertex.Backend.Clickhouse do
   defp build_values(metric) do
     tags = Enum.map_join(metric.tags, ",", &"'#{&1}'")
 
-    ~s|('#{metric.project}', '#{metric.account_id}', '#{metric.event}', [#{tags}])|
+    ~s|('#{metric.project}', '#{metric.tenant}', '#{metric.event}', [#{tags}])|
   end
 end

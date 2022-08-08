@@ -1,7 +1,7 @@
 defmodule Vertex.Metric do
   @enforce_keys [:project, :event]
   defstruct project: nil,
-            account_id: nil,
+            tenant: nil,
             event: nil,
             tags: []
 end

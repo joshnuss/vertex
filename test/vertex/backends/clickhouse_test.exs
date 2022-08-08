@@ -19,7 +19,7 @@ defmodule Vertex.Backend.ClickhouseTest do
       assert conn.query_params["query"] == ""
 
       assert body == """
-             INSERT INTO metrics (project, account_id, event, tags)
+             INSERT INTO metrics (project, tenant, event, tags)
              FORMAT Values ('example', '123', 'access.login.success', [])
              """
 
@@ -28,7 +28,7 @@ defmodule Vertex.Backend.ClickhouseTest do
 
     metric = %Metric{
       project: "example",
-      account_id: "123",
+      tenant: "123",
       event: "access.login.success"
     }
 
@@ -43,7 +43,7 @@ defmodule Vertex.Backend.ClickhouseTest do
       assert conn.query_params["query"] == ""
 
       assert body == """
-             INSERT INTO metrics (project, account_id, event, tags)
+             INSERT INTO metrics (project, tenant, event, tags)
              FORMAT Values ('example', '123', 'access.login.success', ['test','staging'])
              """
 
@@ -52,7 +52,7 @@ defmodule Vertex.Backend.ClickhouseTest do
 
     metric = %Metric{
       project: "example",
-      account_id: "123",
+      tenant: "123",
       event: "access.login.success",
       tags: ["test", "staging"]
     }
@@ -68,7 +68,7 @@ defmodule Vertex.Backend.ClickhouseTest do
       assert conn.query_params["query"] == ""
 
       assert body == """
-             INSERT INTO metrics (project, account_id, event, tags)
+             INSERT INTO metrics (project, tenant, event, tags)
              FORMAT Values ('example', '123', 'login.success', ['test']),
              ('foo', '123', 'login.failure', ['test'])
              """
@@ -78,14 +78,14 @@ defmodule Vertex.Backend.ClickhouseTest do
 
     one = %Metric{
       project: "example",
-      account_id: "123",
+      tenant: "123",
       event: "login.success",
       tags: ["test"]
     }
 
     two = %Metric{
       project: "foo",
-      account_id: "123",
+      tenant: "123",
       event: "login.failure",
       tags: ["test"]
     }

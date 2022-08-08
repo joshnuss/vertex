@@ -11,7 +11,7 @@ defmodule Vertex.Backend.TestingTest do
   test "logs a metric" do
     metric = %Metric{
       project: "example",
-      account_id: "123",
+      tenant: "123",
       event: "access.login.success",
       tags: ["test", "staging"]
     }
@@ -23,14 +23,14 @@ defmodule Vertex.Backend.TestingTest do
   test "logs multiple metric" do
     one = %Metric{
       project: "example",
-      account_id: "123",
+      tenant: "123",
       event: "login.success",
       tags: ["test"]
     }
 
     two = %Metric{
       project: "foo",
-      account_id: "123",
+      tenant: "123",
       event: "login.failure",
       tags: ["test"]
     }
