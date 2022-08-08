@@ -1,3 +1,3 @@
-{:ok, _pid} = Analytics.Backend.Testing.start_link()
+{:ok, _pid} = Vertex.Backend.Testing.start_link()
 
 ExUnit.start()

@@ -6,7 +6,7 @@ import Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with esbuild to bundle .js and .css sources.
-config :analytics, AnalyticsWeb.Endpoint,
+config :vertex, VertexWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 4000],
@@ -50,14 +50,14 @@ config :phoenix, :stacktrace_depth, 20
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
-config :analytics, backend: Analytics.Backend.Logger
+config :vertex, backend: Vertex.Backend.Logger
 
-config :analytics,
+config :vertex,
   projects: %{
     "site1" => "fake-access-token"
   }
 
-config :analytics, :clickhouse,
+config :vertex, :clickhouse,
   database: "analytics",
   url: "http://localhost:8123",
   user: "default",

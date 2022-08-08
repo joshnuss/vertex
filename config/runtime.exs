@@ -12,12 +12,12 @@ import Config
 # If you use `mix release`, you need to explicitly enable the server
 # by passing the PHX_SERVER=true when you start it:
 #
-#     PHX_SERVER=true bin/analytics start
+#     PHX_SERVER=true bin/vertex start
 #
 # Alternatively, you can use `mix phx.gen.release` to generate a `bin/server`
 # script that automatically sets the env var above.
 if System.get_env("PHX_SERVER") do
-  config :analytics, AnalyticsWeb.Endpoint, server: true
+  config :vertex, VertexWeb.Endpoint, server: true
 end
 
 if config_env() == :prod do
@@ -36,7 +36,7 @@ if config_env() == :prod do
   host = System.get_env("PHX_HOST") || "example.com"
   port = String.to_integer(System.get_env("PORT") || "4000")
 
-  config :analytics, AnalyticsWeb.Endpoint,
+  config :vertex, VertexWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
     http: [
       # Enable IPv6 and bind on all interfaces.
@@ -54,7 +54,7 @@ if config_env() == :prod do
   # Also, you may need to configure the Swoosh API client of your choice if you
   # are not using SMTP. Here is an example of the configuration:
   #
-  #     config :analytics, Analytics.Mailer,
+  #     config :vertex, Vertex.Mailer,
   #       adapter: Swoosh.Adapters.Mailgun,
   #       api_key: System.get_env("MAILGUN_API_KEY"),
   #       domain: System.get_env("MAILGUN_DOMAIN")
@@ -66,14 +66,14 @@ if config_env() == :prod do
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
 
-  config :analytics, backend: Analytics.Backend.Clickhouse
+  config :vertex, backend: Vertex.Backend.Clickhouse
 
-  config :analytics,
+  config :vertex,
     projects: %{
-      default: System.get_env("ANALYTICS_ACCESS_TOKEN")
+      default: System.get_env("VERTEX_ACCESS_TOKEN")
     }
 
-  config :analytics, :clickhouse,
+  config :vertex, :clickhouse,
     database: System.get_env("CLICKHOUSE_DATABASE"),
     url: System.get_env("CLICKHOUSE_URL"),
     user: System.get_env("CLICKHOUSE_USER"),

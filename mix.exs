@@ -1,9 +1,9 @@
-defmodule Analytics.MixProject do
+defmodule Vertex.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :analytics,
+      app: :vertex,
       version: "0.1.0",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -19,7 +19,7 @@ defmodule Analytics.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Analytics.Application, []},
+      mod: {Vertex.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

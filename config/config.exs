@@ -8,10 +8,10 @@
 import Config
 
 # Configures the endpoint
-config :analytics, AnalyticsWeb.Endpoint,
+config :vertex, VertexWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: AnalyticsWeb.ErrorView, accepts: ~w(json), layout: false],
-  pubsub_server: Analytics.PubSub,
+  render_errors: [view: VertexWeb.ErrorView, accepts: ~w(json), layout: false],
+  pubsub_server: Vertex.PubSub,
   live_view: [signing_salt: "cTRQj7pG"]
 
 # Configures the mailer
@@ -21,7 +21,7 @@ config :analytics, AnalyticsWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :analytics, Analytics.Mailer, adapter: Swoosh.Adapters.Local
+config :vertex, Vertex.Mailer, adapter: Swoosh.Adapters.Local
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false

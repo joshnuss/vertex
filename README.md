@@ -1,4 +1,4 @@
-# Analytics
+# Vertex
 
 A server for storing multi-tenant metrics in [ClickHouse](https://clickhouse.com/).
 

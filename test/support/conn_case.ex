@@ -1,4 +1,4 @@
-defmodule AnalyticsWeb.ConnCase do
+defmodule VertexWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -11,7 +11,7 @@ defmodule AnalyticsWeb.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use AnalyticsWeb.ConnCase, async: true`, although
+  by setting `use VertexWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -22,12 +22,12 @@ defmodule AnalyticsWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import AnalyticsWeb.ConnCase
+      import VertexWeb.ConnCase
 
-      alias AnalyticsWeb.Router.Helpers, as: Routes
+      alias VertexWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint AnalyticsWeb.Endpoint
+      @endpoint VertexWeb.Endpoint
     end
   end
 
