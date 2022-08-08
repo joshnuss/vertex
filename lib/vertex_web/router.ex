@@ -14,6 +14,7 @@ defmodule VertexWeb.Router do
     pipe_through :api
 
     post "/event", EventController, :create
+    post "/events", EventController, :batch
   end
 
   # Enables LiveDashboard only for development

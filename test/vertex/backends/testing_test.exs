@@ -19,4 +19,23 @@ defmodule Vertex.Backend.TestingTest do
     assert Testing.record(metric) == :ok
     assert Testing.metrics() == [metric]
   end
+
+  test "logs multiple metric" do
+    one = %Metric{
+      project: "example",
+      account_id: "123",
+      event: "login.success",
+      tags: ["test"]
+    }
+
+    two = %Metric{
+      project: "foo",
+      account_id: "123",
+      event: "login.failure",
+      tags: ["test"]
+    }
+
+    assert Testing.record([one, two]) == :ok
+    assert Testing.metrics() == [one, two]
+  end
 end

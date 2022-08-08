@@ -8,8 +8,8 @@ defmodule Vertex.Backend.Clickhouse do
   @password Keyword.fetch!(@config, :password)
   @req Req.new(base_url: @url)
 
-  def record(metric) do
-    query = build_query(metric)
+  def record(metrics) when is_list(metrics) do
+    query = build_query(metrics)
 
     %{status: 200} =
       Req.post!(@req,
@@ -22,17 +22,20 @@ defmodule Vertex.Backend.Clickhouse do
     :ok
   end
 
-  defp build_query(metric) do
-    tags = Enum.map_join(metric.tags, ",", &"'#{&1}'")
+  def record(metric), do: record([metric])
+
+  defp build_query(metrics) do
+    values = Enum.map_join(metrics, ",\n", &build_values/1)
 
     """
     INSERT INTO metrics (project, account_id, event, tags)
-    VALUES (
-      '#{metric.project}',
-      '#{metric.account_id}',
-      '#{metric.event}',
-      [#{tags}]
-    )
+    FORMAT Values #{values}
     """
+  end
+
+  defp build_values(metric) do
+    tags = Enum.map_join(metric.tags, ",", &"'#{&1}'")
+
+    ~s|('#{metric.project}', '#{metric.account_id}', '#{metric.event}', [#{tags}])|
   end
 end

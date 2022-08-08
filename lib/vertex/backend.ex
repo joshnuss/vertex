@@ -1,3 +1,5 @@
 defmodule Vertex.Backend do
-  @callback record(metric :: Vertex.Metric.t()) :: :ok
+  alias Vertex.Metric
+
+  @callback record(metrics :: list(Metric.t) | Metric.t) :: :ok
 end

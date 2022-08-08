@@ -12,13 +12,22 @@ It is also more economical than DataDog or similar metric logging systems. It ca
 
 ## Usage
 
-To send a metric over HTTP:
+### Send a single metric
 
 ```bash
 curl http://localhost:4000/event \
   --header "authorization: Bearer <access-token>" \
   --header "content-type: application/json" \
   --data '{ "account_id": "1234", "event": "order.success", "tags": ["enterprise-plan", "sandbox"] }'
+```
+
+## Send a batch of metrics
+
+```bash
+curl http://localhost:4000/events \
+  --header "authorization: Bearer <access-token>" \
+  --header "content-type: application/json" \
+  --data '[{"account_id": "1234", "event": "account.login"}, {"account_id": "1234", "event": "order.success"}]'
 ```
 
 ## Deployment
@@ -41,7 +50,6 @@ Create a list of project names and access keys in `projects.json`:
 
 ## Future ideas
 
-- Support batch inserting metrics
 - Support triggers: send an email when something happens
 - Support expectations: send an email when something doesn't happen
 

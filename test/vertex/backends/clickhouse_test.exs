@@ -20,12 +20,7 @@ defmodule Vertex.Backend.ClickhouseTest do
 
       assert body == """
              INSERT INTO metrics (project, account_id, event, tags)
-             VALUES (
-               'example',
-               '123',
-               'access.login.success',
-               []
-             )
+             FORMAT Values ('example', '123', 'access.login.success', [])
              """
 
       Conn.resp(conn, 200, "")
@@ -49,12 +44,7 @@ defmodule Vertex.Backend.ClickhouseTest do
 
       assert body == """
              INSERT INTO metrics (project, account_id, event, tags)
-             VALUES (
-               'example',
-               '123',
-               'access.login.success',
-               ['test','staging']
-             )
+             FORMAT Values ('example', '123', 'access.login.success', ['test','staging'])
              """
 
       Conn.resp(conn, 200, "")
@@ -68,5 +58,39 @@ defmodule Vertex.Backend.ClickhouseTest do
     }
 
     assert Clickhouse.record(metric) == :ok
+  end
+
+  test "sends multiple metrics", %{ bypass: bypass } do
+    Bypass.expect_once(bypass, "POST", "/", fn conn ->
+      {:ok, body, conn} = Conn.read_body(conn)
+
+      assert conn.query_params["database"] == "analytics"
+      assert conn.query_params["query"] == ""
+
+      assert body == """
+             INSERT INTO metrics (project, account_id, event, tags)
+             FORMAT Values ('example', '123', 'login.success', ['test']),
+             ('foo', '123', 'login.failure', ['test'])
+             """
+
+      Conn.resp(conn, 200, "")
+    end)
+
+    one = %Metric{
+      project: "example",
+      account_id: "123",
+      event: "login.success",
+      tags: ["test"]
+    }
+
+    two = %Metric{
+      project: "foo",
+      account_id: "123",
+      event: "login.failure",
+      tags: ["test"]
+    }
+
+
+    assert Clickhouse.record([one, two]) == :ok
   end
 end

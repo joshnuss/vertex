@@ -7,8 +7,12 @@ defmodule Vertex.Backend.Testing do
     Agent.start_link(fn -> [] end, name: @name)
   end
 
+  def record(metrics) when is_list(metrics) do
+    Agent.update(@name, fn state -> state ++ metrics end)
+  end
+
   def record(metric) do
-    Agent.update(@name, fn state -> state ++ [metric] end)
+    record([metric])
   end
 
   def metrics do
