@@ -32,6 +32,12 @@ curl http://localhost:4000/events \
 
 ## Deployment
 
+Create database using [`setup.sql`](/priv/setup.sql):
+
+```bash
+echo priv/setup.sql | clickhouse-client --host <ip> --database=<db-name> --user=default --password=<password>
+```
+
 Set environement vars:
 
 - `CLICKHOUSE_DATABASE`: Name of the ClickHouse database.
