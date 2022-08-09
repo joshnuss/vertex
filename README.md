@@ -4,15 +4,15 @@ A server for storing multi-tenant metrics in [ClickHouse](https://clickhouse.com
 
 ## Motivation
 
-Unlike StatsD, events are scoped by tenant. That makes it possible to have alerts and reporting based on tenants.
+Unlike StatsD, events are scoped by tenant. That makes it possible to have alerts and reporting on the tenant level.
 
-For example, I'd like to know if an account hasn't logged in over the past 2 weeks. The SaaS app would publish an event `login.success` and attach the `account_id` as the `tenant`. Then automation could be built around that event being missing.
+For example, if you'd like to when accounts haven't logged in over for 2 weeks. The app could publish an event `login.success` and attach their `account_id` as the `tenant`. Then reporting and alerts could be triggered when `login.success` event is missing over a window of 2 weeks.
 
-It is also more economical than DataDog or similar metric logging systems. It can run on inexpensive hosting while supporting many projects for no additional cost.
+This approach is also more economical than DataDog or similar logging systems. It doesn't require expensive hosting, and the same infrastructure can support multiple projects for no additional cost.
 
 ## Usage
 
-### Send a single metric
+### Sending a single metric
 
 ```bash
 curl http://localhost:4000/event \
@@ -21,7 +21,7 @@ curl http://localhost:4000/event \
   --data '{ "tenant": "1234", "event": "order.success", "tags": ["enterprise-plan", "sandbox"] }'
 ```
 
-### Send a batch of metrics
+### Sending a batch of metrics
 
 ```bash
 curl http://localhost:4000/events \
@@ -32,20 +32,20 @@ curl http://localhost:4000/events \
 
 ## Deployment
 
-Create database using [`setup.sql`](/priv/setup.sql):
+Create the database using [`setup.sql`](/priv/setup.sql):
 
 ```bash
 cat priv/setup.sql | clickhouse-client --host <ip> --database=<db-name> --user=default --password=<password>
 ```
 
-Set environement vars:
+Set up the environment variables:
 
 - `CLICKHOUSE_URL`: URL of the ClickHouse cluster. Including the port (usually `:8123`).
 - `CLICKHOUSE_DATABASE`: Name of the ClickHouse database.
 - `CLICKHOUSE_USER`: Name of ClickHouse user.
 - `CLICKHOUSE_PASSWORD`: Password for ClickHouse user.
 
-Create a list of project names and access keys in `projects.json`:
+For each project that can access the server, create a record in `projects.json`.
 
 ```json
 {
@@ -53,6 +53,8 @@ Create a list of project names and access keys in `projects.json`:
   "my-other-project": "my-other-access-token"
 }
 ```
+
+The key is the name of the project, and the value is the access token.
 
 ## Future ideas
 
