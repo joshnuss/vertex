@@ -3,8 +3,6 @@ defmodule VertexWeb.EventController do
 
   alias Vertex.Metric
 
-  @backend Application.get_env(:vertex, :backend)
-
   def create(conn, params) do
     metric = %Metric{
       project: conn.assigns.project,
@@ -13,9 +11,7 @@ defmodule VertexWeb.EventController do
       tags: params["tags"] || []
     }
 
-    spawn(fn ->
-      @backend.record(metric)
-    end)
+    spawn_record(metric)
 
     conn
     |> put_status(:created)
@@ -31,12 +27,18 @@ defmodule VertexWeb.EventController do
       tags: &1["tags"] || []
     })
 
-    spawn(fn ->
-      @backend.record(metrics)
-    end)
+    spawn_record(metrics)
 
     conn
     |> put_status(:created)
     |> json(%{})
+  end
+
+  defp spawn_record(metrics) do
+    backend = Application.get_env(:vertex, :backend)
+
+    spawn(fn ->
+      backend.record(metrics)
+    end)
   end
 end
