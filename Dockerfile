@@ -17,4 +17,6 @@ RUN mix do deps.get, deps.compile
 
 ADD . .
 
+RUN mix do compile, phx.digest
+
 CMD mix phx.server
